@@ -1,6 +1,6 @@
 # Evalúa Concursos
 
-Es una página web para organizar concursos de principio a fin: armas la convocatoria, defines las categorías y la rúbrica, recibes los proyectos, le asignas jurados a cada uno, ellos califican y al final sale el ranking solito. La hice para el curso de Análisis y Diseño de Sistemas de Información (Ingeniería de Sistemas e Informática, Lima, 2026).
+Es una página web para organizar concursos de principio a fin: armas la convocatoria, defines las categorías y la rúbrica, recibes los proyectos, le asignas jurados a cada uno, ellos califican y al final sale el ranking solito.
 
 ## Pruébala aquí
 
