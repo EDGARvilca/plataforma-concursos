@@ -31,7 +31,7 @@ export function IconoLogo({ alto = 44, sobreOscuro = true }) {
   )
 }
 
-/** Logo completo: ícono + "Evalua" + "— CONCURSOS —", como en el diseño oficial. */
+/** Logo completo: ícono + "Evalúa" + "— CONCURSOS —", como en el diseño oficial. */
 export default function Logo({ tamano = 44, conTexto = true, claro = false }) {
   return (
     // --logo-alto: el texto crece en proporción al ícono
@@ -39,7 +39,7 @@ export default function Logo({ tamano = 44, conTexto = true, claro = false }) {
       <IconoLogo alto={tamano} sobreOscuro={claro} />
       {conTexto && (
         <span className="logo-texto">
-          <span className="logo-nombre">Evalua</span>
+          <span className="logo-nombre">Evalúa</span>
           <span className="logo-sub">Concursos</span>
         </span>
       )}

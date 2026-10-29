@@ -606,7 +606,7 @@ h1,
 .logo { display: inline-flex; align-items: center; gap: .6rem; line-height: 1; }
 .logo-icono { flex-shrink: 0; width: auto; overflow: visible; }
 .logo-texto { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
-/* "Evalua": letra gruesa y redondeada como en el logo oficial */
+/* "Evalúa": letra gruesa y redondeada como en el logo oficial */
 .logo-nombre { font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 800; font-size: calc(var(--logo-alto, 44px) * .6); letter-spacing: -.02em; color: var(--primario); }
 /* "— CONCURSOS —" con las rayitas a los lados */
 .logo-sub { display: flex; align-items: center; gap: .35rem; font-size: calc(var(--logo-alto, 44px) * .17); font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: #d3a53a; padding-left: .3em; }

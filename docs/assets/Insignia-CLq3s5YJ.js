@@ -1,0 +1,1 @@
+import{n as e}from"./Logo-DEnHHls7.js";var t=e();function n({texto:e,clase:n}){return(0,t.jsx)(`span`,{className:`badge estado ${n}`,children:e})}export{n as t};
