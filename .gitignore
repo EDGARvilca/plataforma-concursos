@@ -1,0 +1,14 @@
+# Compilación y dependencias
+target/
+node_modules/
+maven-cache/
+.m2verify*/
+
+# Datos locales (base H2 y archivos subidos)
+data/
+*.db
+
+# Editor y sistema
+.idea/
+*.iml
+.DS_Store

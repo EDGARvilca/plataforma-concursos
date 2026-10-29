@@ -1,0 +1,1 @@
+var e=class extends Error{constructor(e,t){super(e),this.estado=t}};export{e as t};

@@ -1,0 +1,712 @@
+/* =====================================================================
+   ESTILOS.CSS — Evalúa Concursos
+   Capa de estilos propia que se apoya en Bootstrap 5.
+
+   Bootstrap aporta: rejilla (row/col), botones, formularios, tablas,
+   tarjetas, alertas, barra de navegación y barras de progreso.
+   Este archivo solo añade la identidad visual (colores, tipografía)
+   y los componentes que Bootstrap no trae (hero, podio, rúbrica).
+
+   Contenido:
+     1. Variables de color
+     2. Base y tipografía
+     3. Ajustes de Bootstrap (botones, tarjetas, formularios)
+     4. Barra de navegación
+     5. Hero (banner de cada panel)
+     6. Tarjetas y métricas
+     7. Estados del concurso (insignias)
+     8. Documentos adjuntos
+     9. Evaluación con rúbrica
+    10. Podio y ranking
+    11. Pantallas de acceso (login)
+    12. Utilidades
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1. VARIABLES DE COLOR
+   Se definen una sola vez; el resto del archivo las reutiliza con var().
+   --------------------------------------------------------------------- */
+:root {
+    --primario:       #33493d;   /* verde bosque: botones y enlaces      */
+    --primario-oscuro:#22322a;   /* verde más oscuro: estado hover       */
+    --acento:         #ab8a58;   /* dorado oliva: detalles y foco        */
+    --tinta:          #1c1a16;   /* texto principal                      */
+    --tenue:          #6b6355;   /* texto secundario                     */
+    --fondo:          #f2ece1;   /* fondo de la página                   */
+    --superficie:     #fdfbf7;   /* fondo de tarjetas                    */
+    --linea:          #e6ddc9;   /* bordes                               */
+    --suave:          #e8e2d0;   /* fondos suaves (chips, iconos)        */
+
+    /* Variables propias de Bootstrap que sobrescribimos para que sus
+       componentes tomen nuestra paleta automáticamente. */
+    --bs-primary:        #33493d;
+    --bs-primary-rgb:    51, 73, 61;
+    --bs-body-bg:        #f2ece1;
+    --bs-body-color:     #1c1a16;
+    --bs-border-color:   #e6ddc9;
+    --bs-link-color:     #33493d;
+    --bs-link-color-rgb: 51, 73, 61;        /* Bootstrap pinta los enlaces con la versión RGB */
+    --bs-link-hover-color: #22322a;
+    --bs-link-hover-color-rgb: 34, 50, 42;
+    --bs-secondary-color: #6b6355;
+}
+
+
+/* ---------------------------------------------------------------------
+   2. BASE Y TIPOGRAFÍA
+   Los títulos grandes (h1) usan una tipografía serif cursiva;
+   el resto del texto usa la fuente del sistema para máxima legibilidad.
+   --------------------------------------------------------------------- */
+body {
+    background: var(--fondo);
+    color: var(--tinta);
+}
+
+/* Los enlaces solo se subrayan al pasar el cursor */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+.btn:hover, .nav-link:hover, .marca:hover, .archivo:hover { text-decoration: none; }
+
+h1,
+.titulo-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Rótulo pequeño en mayúsculas que acompaña a los títulos */
+.etiqueta-seccion {
+    display: block;
+    margin-bottom: .35rem;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--tenue);
+}
+
+
+/* ---------------------------------------------------------------------
+   3. AJUSTES DE BOOTSTRAP
+   --------------------------------------------------------------------- */
+.btn-primary {
+    --bs-btn-bg: var(--primario);
+    --bs-btn-border-color: var(--primario);
+    --bs-btn-hover-bg: var(--primario-oscuro);
+    --bs-btn-hover-border-color: var(--primario-oscuro);
+    --bs-btn-active-bg: var(--primario-oscuro);
+    --bs-btn-active-border-color: var(--primario-oscuro);
+    --bs-btn-disabled-bg: var(--primario);
+    --bs-btn-disabled-border-color: var(--primario);
+}
+
+/* Botón de apoyo: fondo suave con texto verde (acciones secundarias) */
+.btn-suave {
+    --bs-btn-color: var(--primario);
+    --bs-btn-bg: var(--suave);
+    --bs-btn-border-color: var(--suave);
+    --bs-btn-hover-color: var(--primario-oscuro);
+    --bs-btn-hover-bg: #ddd5bb;
+    --bs-btn-hover-border-color: #ddd5bb;
+    --bs-btn-active-bg: #ddd5bb;
+    --bs-btn-active-border-color: #ddd5bb;
+}
+
+/* Botón de borde: gris cálido; al estar activo (filtros) se rellena de verde */
+.btn-outline-secondary {
+    --bs-btn-color: var(--tenue);
+    --bs-btn-border-color: #cfc6ad;
+    --bs-btn-hover-color: var(--primario);
+    --bs-btn-hover-bg: var(--suave);
+    --bs-btn-hover-border-color: #cfc6ad;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--primario);
+    --bs-btn-active-border-color: var(--primario);
+}
+
+.btn { border-radius: .65rem; font-weight: 600; }
+
+/* Barras de progreso en verde (por defecto Bootstrap las pinta de azul) */
+.progress-bar { background-color: var(--primario); }
+
+/* Listas dentro de tarjetas: sin fondo propio */
+.list-group {
+    --bs-list-group-bg: transparent;
+    --bs-list-group-border-color: var(--linea);
+}
+
+.card {
+    --bs-card-bg: var(--superficie);
+    --bs-card-border-color: var(--linea);
+    --bs-card-border-radius: 1rem;
+    box-shadow: 0 6px 18px rgba(34, 50, 42, .06);
+}
+
+/* Los campos se ven blancos sobre el fondo beige de la página */
+.form-control,
+.form-select { background-color: #fff; }
+
+/* Foco de los campos de formulario en color dorado */
+.form-control:focus,
+.form-select:focus {
+    border-color: #b8986a;
+    box-shadow: 0 0 0 .25rem rgba(171, 138, 88, .25);
+}
+
+.table > :not(caption) > * > * { background-color: transparent; }
+.table thead th {
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--tenue);
+}
+
+
+/* ---------------------------------------------------------------------
+   4. BARRA DE NAVEGACIÓN
+   --------------------------------------------------------------------- */
+.barra-superior {
+    background: rgba(253, 251, 247, .94);
+    border-bottom: 1px solid var(--linea);
+    backdrop-filter: blur(8px);
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+.marca-logo {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: .8rem;
+    color: #fff;
+    background: linear-gradient(145deg, var(--primario), var(--acento));
+}
+
+.barra-superior .nav-link {
+    padding: .5rem .85rem;
+    border-radius: .6rem;
+    font-weight: 600;
+    color: var(--tenue);
+}
+
+.barra-superior .nav-link:hover,
+.barra-superior .nav-link.active {
+    background: var(--suave);
+    color: var(--primario);
+}
+
+/* El botón "Cerrar sesión" es un <button> que debe verse como enlace */
+.barra-superior form .nav-link {
+    border: 0;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+
+/* ---------------------------------------------------------------------
+   5. HERO — banner de bienvenida de cada panel
+   --------------------------------------------------------------------- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    border-radius: 1.5rem;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(196, 158, 90, .38), transparent 18rem),
+        linear-gradient(125deg, #1c2620, #33493d 55%, #6d8a6a);
+    box-shadow: 0 20px 45px rgba(28, 38, 32, .22);
+}
+
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; }
+.hero .etiqueta-seccion { color: #ece6d5; }
+.hero-texto { max-width: 42rem; color: #e4e0cf; }
+
+/* Cuadros de cifras dentro del hero (completadas / pendientes) */
+.hero-cifra {
+    min-width: 7rem;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .12);
+}
+.hero-cifra strong { display: block; font-size: 1.8rem; }
+.hero-cifra span   { font-size: .75rem; color: #e4e0cf; }
+
+/* Mini panel de pasos que aparece a la derecha del hero del dashboard */
+.hero-pasos {
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(12, 20, 16, .25);
+}
+.hero-paso { display: flex; align-items: center; gap: .75rem; padding: .55rem .4rem; border-radius: .6rem; color: #d6d2c0; }
+.hero-paso.activo { background: rgba(255, 255, 255, .12); color: #fff; }
+.hero-paso b { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; font-size: .7rem; background: rgba(255, 255, 255, .12); }
+.hero-paso small { display: block; font-size: .7rem; opacity: .75; }
+
+
+/* ---------------------------------------------------------------------
+   6. TARJETAS Y MÉTRICAS
+   --------------------------------------------------------------------- */
+.tarjeta-concurso { transition: transform .2s, box-shadow .2s; }
+.tarjeta-concurso:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(34, 50, 42, .12);
+}
+
+.icono-metrica {
+    width: 46px;
+    height: 46px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-weight: 700;
+    background: var(--suave);
+    color: var(--primario);
+}
+.icono-metrica.verde { background: #e7f8f1; color: #146d4d; }
+.icono-metrica.ambar { background: #fff4de; color: #a36a0d; }
+.cifra-metrica { font-size: 1.7rem; font-weight: 700; line-height: 1; }
+
+/* Cuadro de ayuda con fondo suave (consejos, avisos informativos) */
+.recuadro {
+    padding: 1rem 1.1rem;
+    border-radius: .85rem;
+    border: 1px solid var(--linea);
+    background: #f7f2e6;
+    font-size: .9rem;
+}
+
+.vacio {
+    padding: 3rem 1rem;
+    text-align: center;
+    border: 2px dashed #d9cfb5;
+    border-radius: 1.25rem;
+    background: rgba(253, 251, 247, .7);
+}
+.vacio-icono {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto .75rem;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 1.4rem;
+    background: var(--suave);
+    color: var(--primario);
+}
+
+
+/* ---------------------------------------------------------------------
+   7. ESTADOS DEL CONCURSO (insignias)
+   Se usan junto a la clase "badge" de Bootstrap:
+   <span class="badge estado estado-open">
+   --------------------------------------------------------------------- */
+.estado {
+    padding: .4rem .7rem;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 700;
+}
+.estado-draft      { background: #eceae4; color: #59554b; }   /* Borrador              */
+.estado-open       { background: #e7f8f1; color: #117a52; }   /* Inscripciones abiertas */
+.estado-evaluation { background: #fff4de; color: #a36a0d; }   /* En evaluación          */
+.estado-closed     { background: #e5dfcb; color: #5c5546; }   /* Cerrado / Evaluado     */
+
+
+/* ---------------------------------------------------------------------
+   8. DOCUMENTOS ADJUNTOS
+   --------------------------------------------------------------------- */
+.archivo {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .7rem;
+    border: 1px solid var(--linea);
+    border-radius: .75rem;
+    background: #f7f2e6;
+    color: inherit;
+    text-decoration: none;
+}
+.archivo:hover { border-color: var(--primario); color: inherit; }
+.archivo-icono {
+    width: 36px;
+    height: 40px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    font-size: .62rem;
+    font-weight: 800;
+    background: #ffebed;
+    color: #b63d48;
+}
+.archivo small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Lista de comentarios del jurado (portal del participante) */
+.comentarios {
+    margin: .5rem 0 0;
+    padding: .75rem 1rem;
+    list-style: none;
+    border-radius: .75rem;
+    border: 1px solid var(--linea);
+    background: #f7f2e6;
+    font-size: .85rem;
+}
+.comentarios li + li { margin-top: .5rem; }
+
+
+/* ---------------------------------------------------------------------
+   9. EVALUACIÓN CON RÚBRICA
+   --------------------------------------------------------------------- */
+/* Barra fija con el avance y el puntaje estimado */
+.resumen-evaluacion {
+    position: sticky;
+    top: 76px;
+    z-index: 10;
+    margin-bottom: 1rem;
+    padding: 1rem 1.25rem;
+    color: #fff;
+    border-radius: 1rem;
+    background: #1c2620;
+    box-shadow: 0 14px 30px rgba(28, 38, 32, .22);
+}
+.resumen-evaluacion .progress { height: 8px; background: rgba(255, 255, 255, .15); }
+.resumen-evaluacion .progress-bar { background: var(--acento); }
+.resumen-evaluacion small { color: #cfd6cd; text-transform: uppercase; letter-spacing: .08em; font-size: .65rem; }
+
+/* Cada criterio: número | descripción | casilla de puntaje */
+.rubrica-fila {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr 8.5rem;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--linea);
+}
+.rubrica-fila:last-child { border-bottom: 0; }
+.rubrica-numero {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-size: .8rem;
+    font-weight: 700;
+    background: var(--suave);
+    color: var(--primario);
+}
+.rubrica-fila .progress { height: 4px; margin-top: .5rem; }
+.rubrica-fila .progress-bar { background: var(--primario); }
+.puntaje { font-size: 1.2rem; font-weight: 700; text-align: center; }
+
+@media (max-width: 575.98px) {
+    .rubrica-fila { grid-template-columns: 2.2rem 1fr; }
+    .rubrica-puntaje { grid-column: 2; }
+}
+
+
+/* ---------------------------------------------------------------------
+   10. PODIO Y RANKING
+   El podio es una cuadrícula de 3 columnas: 2.º | 1.º | 3.º.
+   --------------------------------------------------------------------- */
+.podio {
+    display: grid;
+    grid-template-columns: 1fr 1.14fr 1fr;
+    gap: 1.1rem;
+    align-items: end;
+}
+.podio-puesto { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.podio-medalla {
+    position: relative;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    margin-bottom: -19px;
+    display: grid;
+    place-items: center;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    font-weight: 800;
+    background: #e9e6df;
+    color: #5d5a50;
+    box-shadow: 0 8px 16px rgba(30, 52, 88, .18);
+}
+.podio-medalla.oro    { background: linear-gradient(145deg, #ffd66b, #e8a72a); color: #7a4c02; }
+.podio-medalla.bronce { background: linear-gradient(145deg, #e7b088, #c97a45); color: #5c2f10; }
+
+.podio-tarjeta {
+    width: 100%;
+    min-height: 120px;
+    padding: 1.5rem .9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    border: 1px solid var(--linea);
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(34, 50, 42, .06);
+}
+.podio-puesto.primero .podio-tarjeta { min-height: 136px; border-color: #f4dd9a; box-shadow: 0 16px 36px rgba(189, 138, 16, .16); }
+.podio-puntaje { font-size: 1.35rem; font-weight: 800; color: var(--primario); }
+.podio-puesto.primero .podio-puntaje { font-size: 1.7rem; color: #a46f08; }
+
+.podio-base { width: 82%; margin-top: .5rem; border-radius: .6rem .6rem 0 0; }
+.base-1 { height: 60px; background: linear-gradient(180deg, #ffe6a3, #f3c766); }
+.base-2 { height: 40px; background: linear-gradient(180deg, #eef1f6, #d7dce6); }
+.base-3 { height: 26px; background: linear-gradient(180deg, #f2d9c4, #e2b998); }
+
+/* Círculo con el número de puesto en la tabla del ranking */
+.puesto {
+    width: 30px;
+    height: 30px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    font-weight: 700;
+    background: #ece9e2;
+    color: #5d5a50;
+}
+.puesto-1 { background: #fff2c9; color: #a46f08; }
+.puesto-3 { background: #f7e5d9; color: #9b5c32; }
+
+@media (max-width: 767.98px) {
+    .podio { grid-template-columns: 1fr; }
+    .podio-puesto.primero { order: -1; }
+    .podio-base { display: none; }
+}
+
+
+/* ---------------------------------------------------------------------
+   11. PANTALLAS DE ACCESO (login, recuperar contraseña)
+   --------------------------------------------------------------------- */
+.auth-historia {
+    position: relative;
+    color: #fff;
+    background:
+        radial-gradient(circle at 22% 78%, rgba(196, 158, 90, .35), transparent 23rem),
+        linear-gradient(145deg, #1c2620, #2c4136 56%, #33493d);
+}
+.auth-historia h1 { font-size: clamp(2.4rem, 4.5vw, 3.8rem); line-height: 1.05; }
+.auth-historia p  { color: #e4e0cf; max-width: 36rem; }
+.auth-historia .etiqueta-seccion { color: #ece6d5; }
+.auth-historia .marca { color: #fff; }
+
+.auth-chip {
+    display: inline-block;
+    padding: .4rem .8rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .1);
+}
+.auth-chip b { color: #d8b876; }
+
+.tarjeta-acceso { max-width: 30rem; border-radius: 1.5rem; }
+
+/* Botones de cuentas de demostración */
+.cuenta-prueba { border-color: var(--linea); background: #fff; }
+.cuenta-prueba:hover,
+.cuenta-prueba.seleccionada { border-color: var(--acento); background: #f7f2e6; }
+
+
+/* ---------------------------------------------------------------------
+   12. UTILIDADES
+   --------------------------------------------------------------------- */
+/* Clase que añade el JavaScript para ocultar un aviso temporal */
+.desvanecer { opacity: 0; transition: opacity .4s; }
+
+/* Respeta a quienes desactivan las animaciones en su sistema */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+
+/* =====================================================================
+   ESTRUCTURA CON BARRA LATERAL (según los wireframes WF03–WF19)
+   .app-shell  = barra lateral + zona principal
+   .sidebar    = menú por rol (en pantallas pequeñas es un offcanvas)
+   .app-main   = franja superior (.app-top) + contenido (.app-content)
+   ===================================================================== */
+.app-shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: var(--primario);
+    color: #e9eee9;
+}
+.sidebar .offcanvas-body { display: flex; flex-direction: column; padding: 1.25rem 1rem; }
+@media (min-width: 992px) {
+    .sidebar { position: sticky; top: 0; height: 100vh; }
+}
+.sidebar .marca { color: #fff; padding: .25rem .5rem 1.25rem; }
+.sidebar .marca-logo { background: var(--acento); color: #fff; }
+
+.menu-etiqueta {
+    font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+    color: #a9b8ad; padding: .9rem .75rem .35rem;
+}
+.menu-link {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .6rem .75rem; border-radius: .65rem;
+    color: #dbe3dc; font-weight: 500; text-decoration: none;
+}
+.menu-link:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+.menu-link.active { background: rgba(255, 255, 255, .15); color: #fff; box-shadow: inset 3px 0 0 var(--acento); }
+.menu-link .menu-icono { width: 1.2rem; text-align: center; opacity: .9; }
+
+.sidebar-pie { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, .12); }
+.sidebar-pie .usuario { font-size: .85rem; line-height: 1.2; padding: 0 .5rem .6rem; }
+.sidebar-pie .usuario small { color: #a9b8ad; display: block; }
+.sidebar-pie .btn { color: #e9eee9; border-color: rgba(255, 255, 255, .3); }
+.sidebar-pie .btn:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+
+.app-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.app-top {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .75rem 1.5rem; background: var(--superficie);
+    border-bottom: 1px solid var(--linea);
+    position: sticky; top: 0; z-index: 5;
+}
+.app-top .titulo-pagina { font-weight: 700; margin: 0; font-size: 1.05rem; }
+.app-content { padding: 1.5rem; max-width: 1180px; width: 100%; }
+@media (max-width: 575.98px) { .app-content { padding: 1rem; } .app-top { padding: .6rem 1rem; } }
+
+.encabezado-pagina { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: .75rem; margin-bottom: 1.25rem; }
+.encabezado-pagina h1 { margin: 0; font-size: 1.6rem; }
+.encabezado-pagina p { margin: 0; color: var(--tenue); }
+
+/* Lista de verificación (WF06) */
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li { display: flex; align-items: center; gap: .6rem; padding: .5rem 0; border-bottom: 1px solid var(--linea); }
+.checklist li:last-child { border-bottom: 0; }
+.check-marca {
+    width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center;
+    font-size: .8rem; font-weight: 700; flex-shrink: 0;
+}
+.check-marca.ok { background: #e7f8f1; color: #117a52; }
+.check-marca.pendiente { background: #fff4de; color: #a36a0d; }
+
+/* Atajos del panel de configuración */
+.atajo { display: block; color: inherit; text-decoration: none; height: 100%; }
+.atajo:hover { color: inherit; }
+.atajo .card { height: 100%; transition: transform .2s, box-shadow .2s; }
+.atajo:hover .card { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(51, 73, 61, .12); }
+
+/* Asignación de jurados (WF11): dos columnas */
+.asignacion-lista { max-height: 420px; overflow-y: auto; border: 1px solid var(--linea); border-radius: .75rem; background: #fff; }
+.asignacion-item { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: .55rem .8rem; border-bottom: 1px solid var(--linea); cursor: pointer; }
+.asignacion-item:last-child { border-bottom: 0; }
+.asignacion-item:hover { background: #f7f2e6; }
+.asignacion-item.seleccionado { background: #efe6d0; box-shadow: inset 3px 0 0 var(--acento); }
+.asignacion-item.insuficiente .conteo { color: #a36a0d; }
+.chip-jurado { display: inline-flex; align-items: center; gap: .35rem; background: #eef2ee; border: 1px solid var(--linea); border-radius: 2rem; padding: .15rem .6rem; font-size: .8rem; margin: .15rem .2rem .15rem 0; }
+.chip-jurado button { border: 0; background: none; padding: 0; line-height: 1; color: #8a3b2a; font-weight: 700; }
+.chip-jurado.nuevo { background: #e7f8f1; border-color: #b9e5d2; }
+
+/* Línea de tiempo del participante (WF19) */
+.linea-tiempo { display: flex; gap: 0; margin: 1rem 0 .5rem; }
+.etapa { flex: 1; text-align: center; position: relative; font-size: .85rem; color: var(--tenue); }
+.etapa::before { content: ''; position: absolute; top: 14px; left: -50%; width: 100%; height: 3px; background: var(--linea); z-index: 0; }
+.etapa:first-child::before { display: none; }
+.etapa b { position: relative; z-index: 1; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto .35rem; background: #fff; border: 2px solid var(--linea); font-size: .8rem; }
+.etapa.hecha { color: var(--primario); }
+.etapa.hecha::before { background: var(--primario); }
+.etapa.hecha b { background: var(--primario); border-color: var(--primario); color: #fff; }
+.etapa.actual b { box-shadow: 0 0 0 4px rgba(171, 138, 88, .35); border-color: var(--acento); }
+.etapa.actual { font-weight: 700; }
+
+/* Resumen de evaluaciones (WF15) */
+.puntaje-final { font-size: 3.2rem; font-weight: 800; color: var(--primario); line-height: 1; }
+
+.fila-filtros { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.fila-filtros .form-control, .fila-filtros .form-select { max-width: 230px; }
+
+/* Menú lateral en pantallas pequeñas: se desliza desde la izquierda (lo controla React) */
+.sidebar-cuerpo { display: flex; flex-direction: column; height: 100%; padding: 1.25rem 1rem; overflow-y: auto; }
+.fondo-menu { display: none; }
+@media (max-width: 991.98px) {
+    .sidebar { position: fixed; top: 0; bottom: 0; left: 0; z-index: 1040; transform: translateX(-100%); transition: transform .25s; }
+    .sidebar.abierta { transform: none; }
+    .sidebar.abierta + .fondo-menu { display: block; position: fixed; inset: 0; background: rgba(0, 0, 0, .4); z-index: 1035; }
+}
+.pagina-acceso { min-height: 100vh; }
+
+/* ---------------------------------------------------------------------
+   LOGO
+   --------------------------------------------------------------------- */
+.logo { display: inline-flex; align-items: center; gap: .65rem; line-height: 1; }
+.logo svg { flex-shrink: 0; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .18)); }
+.logo-texto { display: flex; flex-direction: column; gap: .15rem; }
+.logo-nombre { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; font-size: 1.55rem; letter-spacing: .01em; color: var(--primario); }
+.logo-sub { font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: var(--acento); font-weight: 700; padding-left: .1rem; }
+.logo-claro .logo-nombre { color: #fff; }
+.logo-claro .logo-sub { color: #d8b876; }
+.sidebar .marca { padding: .25rem .25rem 1.4rem; }
+
+/* ---------------------------------------------------------------------
+   GRÁFICOS DEL DASHBOARD
+   --------------------------------------------------------------------- */
+.grafico-circular { margin: 0; }
+.grafico-cifra { font-size: 1.9rem; font-weight: 700; fill: var(--tinta); }
+.grafico-leyenda { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; fill: var(--tenue); }
+.grafico-barras { display: flex; flex-direction: column; gap: .9rem; }
+.barra-fila { display: grid; grid-template-columns: 7.5rem 1fr 2rem; align-items: center; gap: .75rem; font-size: .9rem; }
+.barra-pista { height: 14px; background: #ece4d2; border-radius: 99px; overflow: hidden; }
+.barra-relleno { height: 100%; border-radius: 99px; min-width: 6px; transition: width .5s ease; }
+.barra-valor { text-align: right; }
+@media (max-width: 575.98px) { .barra-fila { grid-template-columns: 6rem 1fr 1.6rem; } }
+
+/* Listas de transferencia de la asignación de jurados (WF11) */
+.transferencia { display: grid; grid-template-columns: 1fr auto 1fr; gap: .75rem; align-items: center; }
+.transferencia-botones { display: flex; flex-direction: column; gap: .4rem; }
+.asignacion-corta { min-height: 220px; max-height: 300px; }
+@media (max-width: 767.98px) {
+    .transferencia { grid-template-columns: 1fr; }
+    .transferencia-botones { flex-direction: row; justify-content: center; }
+}
+
+
+/* ---------------------------------------------------------------------
+   TABLAS EN EL CELULAR
+   Debajo de 576 px cada fila se vuelve una tarjeta: el nombre de la columna
+   (data-etiqueta, lo pone Pagina.jsx) a la izquierda y el valor a la derecha.
+   --------------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+    .table-responsive .table thead { display: none; }
+    .table-responsive .table,
+    .table-responsive .table tbody,
+    .table-responsive .table tr,
+    .table-responsive .table td { display: block; width: 100%; }
+    .table-responsive .table tr {
+        background: #fff; border: 1px solid var(--linea); border-radius: .85rem;
+        padding: .55rem .85rem; margin-bottom: .7rem;
+    }
+    .table-responsive .table > :not(caption) > * > * {
+        border: 0; padding: .3rem 0;
+        display: flex; justify-content: space-between; align-items: center; gap: .75rem;
+        text-align: right; white-space: normal;
+    }
+    .table-responsive .table td[data-etiqueta]::before {
+        content: attr(data-etiqueta); flex-shrink: 0; text-align: left;
+        font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tenue);
+    }
+    .table-responsive .table td:not([data-etiqueta]) { justify-content: flex-end; }
+}
