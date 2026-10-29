@@ -825,6 +825,23 @@ ruta('GET', '/participante/observaciones', ({ usuario }) => bd.proyectos.filter(
   comentariosJurados: asignacionesDe(p.id).map((a) => bd.evaluaciones[a.id]).filter((e) => e?.enviada && e.observaciones).map((e) => e.observaciones),
 })), ['PARTICIPANT'])
 
+ruta('GET', '/participante/resultados', ({ usuario }) => {
+  // Un bloque por cada concurso en el que participo. El ranking se publica recién cuando el concurso se cierra.
+  const mios = bd.proyectos.filter((p) => p.participanteId === usuario.id)
+  const idsConcursos = [...new Set(mios.map((p) => p.concursoId))]
+  return idsConcursos.map((id) => {
+    const concurso = concursoDe(id)
+    const publicado = concurso.estado === 'CLOSED'
+    const ranking = publicado
+      ? proyectosDe(id).map(filaRanking).sort((a, b) => b.promedio - a.promedio).map((fila, indice) => ({ ...fila, puesto: indice + 1 }))
+      : []
+    return {
+      concurso: vistaConcurso(concurso), publicado, ranking,
+      misProyectos: mios.filter((p) => p.concursoId === id).map((p) => p.id),
+    }
+  })
+}, ['PARTICIPANT'])
+
 // ----- Administración -----
 ruta('GET', '/administracion/usuarios', () => [...bd.usuarios].sort((a, b) => a.nombre.localeCompare(b.nombre)).map(vistaUsuario), ['ADMIN'])
 

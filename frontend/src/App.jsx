@@ -36,6 +36,7 @@ const MisProyectos = lazy(() => import('./paginas/participante/MisProyectos.jsx'
 const RegistrarProyecto = lazy(() => import('./paginas/participante/RegistrarProyecto.jsx'))
 const SeguimientoProyecto = lazy(() => import('./paginas/participante/SeguimientoProyecto.jsx'))
 const Observaciones = lazy(() => import('./paginas/participante/Observaciones.jsx'))
+const ResultadosParticipante = lazy(() => import('./paginas/participante/Resultados.jsx'))
 
 const GESTION = ['ADMIN', 'ORGANIZER']
 
@@ -94,6 +95,7 @@ export default function App() {
         <Route path="/participante/registro" element={<RutaProtegida roles={['PARTICIPANT']}><RegistrarProyecto /></RutaProtegida>} />
         <Route path="/participante/proyectos/:id" element={<RutaProtegida roles={['PARTICIPANT']}><SeguimientoProyecto /></RutaProtegida>} />
         <Route path="/participante/observaciones" element={<RutaProtegida roles={['PARTICIPANT']}><Observaciones /></RutaProtegida>} />
+        <Route path="/participante/resultados" element={<RutaProtegida roles={['PARTICIPANT']}><ResultadosParticipante /></RutaProtegida>} />
 
         <Route path="*" element={<Navigate to={inicio} replace />} />
       </Routes>

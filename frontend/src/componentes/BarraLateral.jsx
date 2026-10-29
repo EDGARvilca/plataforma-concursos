@@ -33,6 +33,7 @@ const MENUS = {
     { ruta: '/participante', texto: 'Mis proyectos', icono: '▤', exacta: true },
     { ruta: '/participante/registro', texto: 'Registrar proyecto', icono: '＋' },
     { ruta: '/participante/observaciones', texto: 'Observaciones', icono: '✉' },
+    { ruta: '/participante/resultados', texto: 'Resultados', icono: '★' },
   ],
 }
 

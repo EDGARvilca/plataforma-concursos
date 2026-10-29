@@ -1,0 +1,1 @@
+import{_ as e,h as t,r as n}from"./Logo-DRjAGt7I.js";var r=e(t(),1);function i(e){let[t,i]=(0,r.useState)(null),[a,o]=(0,r.useState)(!0),[s,c]=(0,r.useState)(``),l=(0,r.useCallback)(()=>(o(!0),n.obtener(e).then(e=>{i(e),c(``)}).catch(e=>c(e.message)).finally(()=>o(!1))),[e]);return(0,r.useEffect)(()=>{l()},[l]),{datos:t,cargando:a,error:s,recargar:l}}export{i as t};

@@ -2,6 +2,7 @@ package com.concursos.plataforma.api;
 
 import com.concursos.plataforma.api.Vistas.CategoriaVista;
 import com.concursos.plataforma.api.Vistas.ConcursoVista;
+import com.concursos.plataforma.api.Vistas.FilaRankingVista;
 import com.concursos.plataforma.api.Vistas.ProyectoVista;
 import com.concursos.plataforma.model.AppUser;
 import com.concursos.plataforma.model.Competition;
@@ -11,7 +12,11 @@ import com.concursos.plataforma.service.CompetitionService;
 import com.concursos.plataforma.service.CurrentUserService;
 import com.concursos.plataforma.service.EvaluationService;
 import com.concursos.plataforma.service.ParticipationService;
+import com.concursos.plataforma.dto.RankingRow;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-/** Portal del participante: mis proyectos, registro, seguimiento y observaciones. */
+/** Portal del participante: mis proyectos, registro, seguimiento, observaciones y resultados. */
 @RestController
 @RequestMapping("/api/participante")
 public class ControladorParticipante {
@@ -47,6 +52,11 @@ public class ControladorParticipante {
     }
 
     public record DatosObservaciones(ProyectoVista proyecto, List<String> comentariosJurados) {
+    }
+
+    /** Resultados de un concurso en el que participo; el ranking va vacío hasta que el concurso se cierre. */
+    public record ResultadoConcurso(ConcursoVista concurso, boolean publicado, List<FilaRankingVista> ranking,
+                                    List<Long> misProyectos) {
     }
 
     private final CurrentUserService usuarioActual;
@@ -130,6 +140,29 @@ public class ControladorParticipante {
         return participacion.submissionsFor(usuarioActual.require(autenticacion)).stream()
                 .map(proyecto -> new DatosObservaciones(armador.proyecto(proyecto), evaluaciones.feedbackFor(proyecto)))
                 .toList();
+    }
+
+    @GetMapping("/resultados")
+    public List<ResultadoConcurso> resultados(Authentication autenticacion) {
+        // Agrupo mis proyectos por concurso, respetando el orden en que llegan
+        Map<Competition, List<Long>> misProyectosPorConcurso = new LinkedHashMap<>();
+        for (Submission proyecto : participacion.submissionsFor(usuarioActual.require(autenticacion))) {
+            misProyectosPorConcurso.computeIfAbsent(proyecto.getCompetition(), clave -> new ArrayList<>()).add(proyecto.getId());
+        }
+
+        List<ResultadoConcurso> resultados = new ArrayList<>();
+        misProyectosPorConcurso.forEach((concurso, misProyectos) -> {
+            boolean publicado = concurso.getStatus() == CompetitionStatus.CLOSED;
+            List<FilaRankingVista> filas = new ArrayList<>();
+            if (publicado) {
+                List<RankingRow> ranking = evaluaciones.ranking(concurso);
+                for (int i = 0; i < ranking.size(); i++) {
+                    filas.add(Vistas.filaRanking(ranking.get(i), i + 1));
+                }
+            }
+            resultados.add(new ResultadoConcurso(Vistas.concurso(concurso), publicado, filas, misProyectos));
+        });
+        return resultados;
     }
 
     /** 0 Inscrito · 1 Validado (ya tiene jurados) · 2 En evaluación · 3 Resultado (concurso cerrado). */

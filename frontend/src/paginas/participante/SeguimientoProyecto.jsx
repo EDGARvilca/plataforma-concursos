@@ -43,6 +43,11 @@ export default function SeguimientoProyecto() {
       <div className="card mb-3"><div className="card-body">
         <h2 className="h5">Línea de tiempo</h2>
         <LineaTiempo etapas={etapas} actual={etapa} />
+        {etapa === 3 && (
+          <div className="text-center mt-2">
+            <Link className="btn btn-primary btn-sm" to="/participante/resultados">Ver resultados del concurso</Link>
+          </div>
+        )}
       </div></div>
 
       <div className="row g-3">

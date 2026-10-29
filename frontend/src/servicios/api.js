@@ -23,7 +23,7 @@ function avisarSesionExpirada() {
   window.dispatchEvent(new Event('sesion-expirada'))
 }
 
-async function pedirLocal(ruta, opciones) {
+async function pedirSinServidor(ruta, opciones) {
   // El import dinámico hace que este código no se incluya en la versión con servidor
   const { pedirLocal } = await import('./apiLocal.js')
   try {
@@ -35,7 +35,7 @@ async function pedirLocal(ruta, opciones) {
 }
 
 async function pedir(ruta, { metodo = 'GET', cuerpo, formulario } = {}) {
-  if (MODO_LOCAL) return pedirLocal(ruta, { metodo, cuerpo, formulario })
+  if (MODO_LOCAL) return pedirSinServidor(ruta, { metodo, cuerpo, formulario })
 
   const cabeceras = {}
   const opciones = { method: metodo, headers: cabeceras, credentials: 'same-origin' }

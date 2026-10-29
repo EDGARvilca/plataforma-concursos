@@ -724,3 +724,20 @@ h1,
     }
     .table-responsive .table td:not([data-etiqueta]) { justify-content: flex-end; }
 }
+
+/* ---------------------------------------------------------------------
+   RESULTADOS DEL PARTICIPANTE
+   --------------------------------------------------------------------- */
+.resumen-mi-puesto {
+    display: grid; grid-template-columns: 1fr auto auto; gap: 1.25rem; align-items: center;
+    background: var(--primario); color: #fff; border-radius: 1rem; padding: 1rem 1.25rem;
+    box-shadow: 0 10px 24px rgba(51, 73, 61, .18);
+}
+.resumen-mi-puesto small { text-transform: uppercase; letter-spacing: .1em; font-size: .68rem; color: #d8b876; }
+.table > tbody > tr.fila-mia > * { background: #f7f0de; }
+@media (max-width: 575.98px) {
+    .resumen-mi-puesto { grid-template-columns: 1fr 1fr; }
+    .resumen-mi-puesto > div:first-child { grid-column: 1 / -1; }
+    .resumen-mi-puesto .text-end { text-align: left !important; }
+    .table-responsive .table tr.fila-mia { border-color: var(--acento); box-shadow: 0 0 0 2px rgba(171, 138, 88, .25); }
+}
