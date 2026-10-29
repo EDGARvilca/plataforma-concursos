@@ -423,76 +423,13 @@ h1,
    10. PODIO Y RANKING
    El podio es una cuadrícula de 3 columnas: 2.º | 1.º | 3.º.
    --------------------------------------------------------------------- */
-.podio-escenario { max-width: 720px; margin: 0 auto; padding-top: .5rem; }
-.podio {
-    display: grid;
-    grid-template-columns: 1fr 1.15fr 1fr;
-    align-items: end;            /* todas las columnas se apoyan en el mismo piso */
-    gap: .75rem;
-}
-.podio-columna { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.podio-3d { max-width: 620px; margin: 0 auto; }
+.podio-3d svg { width: 100%; height: auto; display: block; overflow: visible; }
+/* Tamaños en unidades del dibujo: se escalan solos con el ancho de la pantalla */
+.podio-numero { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; font-size: 58px; }
+.podio-nombre-svg { font-weight: 700; font-size: 20px; }
+.podio-puntos-svg { font-weight: 600; font-size: 18px; letter-spacing: .02em; }
 
-.podio-corona { width: 40px; color: #d9a520; margin-bottom: .2rem; filter: drop-shadow(0 3px 6px rgba(217, 165, 32, .35)); }
-
-.podio-medalla {
-    width: 48px; height: 48px; border-radius: 50%;
-    display: grid; place-items: center;
-    font-weight: 800; font-size: 1.1rem;
-    border: 3px solid #fff; box-shadow: 0 6px 16px rgba(0, 0, 0, .14);
-}
-.podio-medalla.oro    { background: linear-gradient(145deg, #ffe08a, #e2a72a); color: #6b4300; }
-.podio-medalla.plata  { background: linear-gradient(145deg, #f3f5f8, #b4bcc8); color: #3f4652; }
-.podio-medalla.bronce { background: linear-gradient(145deg, #f0c4a0, #b9733f); color: #4f2709; }
-.podio-columna.primero .podio-medalla { width: 58px; height: 58px; font-size: 1.35rem; }
-
-.podio-nombre {
-    margin-top: .55rem; padding: 0 .25rem; line-height: 1.25; font-size: .98rem;
-    /* máximo dos líneas para que los títulos largos no desarmen el podio */
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-.podio-categoria { color: var(--tenue); font-size: .75rem; margin-top: .1rem; }
-.podio-puntaje { font-size: 1.45rem; font-weight: 800; color: var(--primario); margin: .2rem 0 .65rem; }
-.podio-columna.primero .podio-puntaje { font-size: 1.95rem; color: #a46f08; }
-
-.podio-pilar {
-    width: 100%;
-    border-radius: 14px 14px 0 0;
-    display: flex; justify-content: center; align-items: flex-start; padding-top: .55rem;
-    font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600;
-    font-size: 2.4rem; line-height: 1; color: rgba(255, 255, 255, .92);
-    text-shadow: 0 2px 6px rgba(0, 0, 0, .18);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -10px 18px rgba(0, 0, 0, .08);
-}
-.pilar-1 { height: 150px; background: linear-gradient(180deg, #ebc76b, #b8862b); }
-.pilar-2 { height: 112px; background: linear-gradient(180deg, #dfe3ea, #9aa3b2); }
-.pilar-3 { height: 82px;  background: linear-gradient(180deg, #e6b892, #a8683a); }
-
-/* Puesto sin proyecto todavía */
-.podio-columna.sin-proyecto .podio-nombre,
-.podio-columna.sin-proyecto .podio-puntaje { color: var(--tenue); font-weight: 600; }
-.podio-columna.sin-proyecto .podio-medalla { opacity: .55; }
-.podio-columna.sin-proyecto .podio-pilar {
-    background: repeating-linear-gradient(45deg, #ece4d2 0 8px, #e4dac5 8px 16px);
-    color: #b9ad94; text-shadow: none;
-}
-
-.podio-suelo { height: 8px; border-radius: 4px; background: linear-gradient(180deg, #d9cdb4, #c8baa0); }
-
-/* En el celular el podio se mantiene, solo más compacto */
-@media (max-width: 575.98px) {
-    .podio { gap: .4rem; }
-    .podio-medalla { width: 38px; height: 38px; font-size: .95rem; }
-    .podio-columna.primero .podio-medalla { width: 44px; height: 44px; font-size: 1.1rem; }
-    .podio-corona { width: 30px; }
-    .podio-nombre { font-size: .8rem; }
-    .podio-categoria { display: none; }
-    .podio-puntaje { font-size: 1.1rem; }
-    .podio-columna.primero .podio-puntaje { font-size: 1.4rem; }
-    .podio-pilar { font-size: 1.7rem; }
-    .pilar-1 { height: 104px; }
-    .pilar-2 { height: 78px; }
-    .pilar-3 { height: 58px; }
-}
 /* Círculo con el número de puesto en la tabla del ranking */
 .puesto {
     width: 30px;
