@@ -5,6 +5,7 @@ import EncabezadoPagina from '../../componentes/EncabezadoPagina.jsx'
 import Cargando from '../../componentes/Cargando.jsx'
 import EstadoVacio from '../../componentes/EstadoVacio.jsx'
 import Mensaje from '../../componentes/Mensaje.jsx'
+import Podio from '../../componentes/Podio.jsx'
 import { useCarga } from '../../componentes/useCarga.js'
 import { formatearNumero } from '../../utilidades/formato.js'
 
@@ -19,8 +20,6 @@ export default function Resultados() {
 
   const { concurso, concursos, ranking, progreso } = datos
   const conPuntaje = ranking.filter((fila) => fila.evaluacionesEnviadas > 0)
-  // El podio se muestra con el 2.º a la izquierda, el 1.º al centro y el 3.º a la derecha
-  const podio = [conPuntaje[1], conPuntaje[0], conPuntaje[2]]
 
   return (
     <Pagina titulo="Resultados">
@@ -42,22 +41,7 @@ export default function Resultados() {
           {conPuntaje.length > 0 && (
             <section className="card mb-3"><div className="card-body">
               <h2 className="h5 text-center mb-4">Top 3</h2>
-              <div className="podio">
-                {podio.map((fila, posicion) => {
-                  if (!fila) return <div key={posicion} />
-                  const lugar = fila.puesto
-                  return (
-                    <div key={fila.proyectoId} className={`podio-puesto ${lugar === 1 ? 'primero' : ''}`}>
-                      <div className={`podio-medalla ${lugar === 1 ? 'oro' : lugar === 3 ? 'bronce' : ''}`}>{lugar}</div>
-                      <div className="podio-tarjeta">
-                        <strong>{fila.titulo}</strong>
-                        <span className="podio-puntaje">{formatearNumero(fila.promedio, 2)}</span>
-                      </div>
-                      <div className={`podio-base base-${lugar}`} />
-                    </div>
-                  )
-                })}
-              </div>
+              <Podio filas={conPuntaje} />
             </div></section>
           )}
 

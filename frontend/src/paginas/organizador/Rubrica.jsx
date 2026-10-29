@@ -45,7 +45,7 @@ export default function Rubrica() {
       </EncabezadoPagina>
       <Mensaje tipo={mensaje.tipo} texto={mensaje.texto || error} alCerrar={() => setMensaje({ ...mensaje, texto: '' })} />
 
-      {cargando && !datos ? <Cargando /> : (
+      {!datos ? (cargando ? <Cargando /> : null) : (
         <>
           <div className="card mb-3">
             <div className="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">

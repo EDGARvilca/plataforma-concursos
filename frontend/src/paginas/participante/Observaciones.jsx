@@ -14,7 +14,7 @@ export default function Observaciones() {
     <Pagina titulo="Observaciones">
       <EncabezadoPagina etiqueta="Seguimiento" titulo="Observaciones" descripcion="Lo que dejaron el organizador y los jurados sobre tus proyectos." />
       <Mensaje texto={error} />
-      {cargando ? <Cargando /> : datos.length === 0 ? (
+      {!datos ? (cargando ? <Cargando /> : null) : datos.length === 0 ? (
         <EstadoVacio titulo="No hay registros todavía" texto="Cuando registres un proyecto verás aquí sus observaciones." />
       ) : datos.map(({ proyecto, comentariosJurados }) => (
         <div className="card mb-3" key={proyecto.id}><div className="card-body">

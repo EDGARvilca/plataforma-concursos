@@ -22,7 +22,7 @@ export default function MisProyectos() {
       </EncabezadoPagina>
       <Mensaje texto={error} />
 
-      {cargando ? <Cargando /> : (
+      {!datos ? (cargando ? <Cargando /> : null) : (
         <>
           <section className="mb-4">
             <h2 className="h5">Mis proyectos</h2>

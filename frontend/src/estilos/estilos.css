@@ -423,55 +423,76 @@ h1,
    10. PODIO Y RANKING
    El podio es una cuadrícula de 3 columnas: 2.º | 1.º | 3.º.
    --------------------------------------------------------------------- */
+.podio-escenario { max-width: 720px; margin: 0 auto; padding-top: .5rem; }
 .podio {
     display: grid;
-    grid-template-columns: 1fr 1.14fr 1fr;
-    gap: 1.1rem;
-    align-items: end;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    align-items: end;            /* todas las columnas se apoyan en el mismo piso */
+    gap: .75rem;
 }
-.podio-puesto { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.podio-columna { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+
+.podio-corona { width: 40px; color: #d9a520; margin-bottom: .2rem; filter: drop-shadow(0 3px 6px rgba(217, 165, 32, .35)); }
 
 .podio-medalla {
-    position: relative;
-    z-index: 2;
-    width: 38px;
-    height: 38px;
-    margin-bottom: -19px;
-    display: grid;
-    place-items: center;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    font-weight: 800;
-    background: #e9e6df;
-    color: #5d5a50;
-    box-shadow: 0 8px 16px rgba(30, 52, 88, .18);
+    width: 48px; height: 48px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 1.1rem;
+    border: 3px solid #fff; box-shadow: 0 6px 16px rgba(0, 0, 0, .14);
 }
-.podio-medalla.oro    { background: linear-gradient(145deg, #ffd66b, #e8a72a); color: #7a4c02; }
-.podio-medalla.bronce { background: linear-gradient(145deg, #e7b088, #c97a45); color: #5c2f10; }
+.podio-medalla.oro    { background: linear-gradient(145deg, #ffe08a, #e2a72a); color: #6b4300; }
+.podio-medalla.plata  { background: linear-gradient(145deg, #f3f5f8, #b4bcc8); color: #3f4652; }
+.podio-medalla.bronce { background: linear-gradient(145deg, #f0c4a0, #b9733f); color: #4f2709; }
+.podio-columna.primero .podio-medalla { width: 58px; height: 58px; font-size: 1.35rem; }
 
-.podio-tarjeta {
+.podio-nombre {
+    margin-top: .55rem; padding: 0 .25rem; line-height: 1.25; font-size: .98rem;
+    /* máximo dos líneas para que los títulos largos no desarmen el podio */
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.podio-categoria { color: var(--tenue); font-size: .75rem; margin-top: .1rem; }
+.podio-puntaje { font-size: 1.45rem; font-weight: 800; color: var(--primario); margin: .2rem 0 .65rem; }
+.podio-columna.primero .podio-puntaje { font-size: 1.95rem; color: #a46f08; }
+
+.podio-pilar {
     width: 100%;
-    min-height: 120px;
-    padding: 1.5rem .9rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .3rem;
-    border: 1px solid var(--linea);
-    border-radius: 1rem;
-    background: #fff;
-    box-shadow: 0 6px 18px rgba(34, 50, 42, .06);
+    border-radius: 14px 14px 0 0;
+    display: flex; justify-content: center; align-items: flex-start; padding-top: .55rem;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600;
+    font-size: 2.4rem; line-height: 1; color: rgba(255, 255, 255, .92);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -10px 18px rgba(0, 0, 0, .08);
 }
-.podio-puesto.primero .podio-tarjeta { min-height: 136px; border-color: #f4dd9a; box-shadow: 0 16px 36px rgba(189, 138, 16, .16); }
-.podio-puntaje { font-size: 1.35rem; font-weight: 800; color: var(--primario); }
-.podio-puesto.primero .podio-puntaje { font-size: 1.7rem; color: #a46f08; }
+.pilar-1 { height: 150px; background: linear-gradient(180deg, #ebc76b, #b8862b); }
+.pilar-2 { height: 112px; background: linear-gradient(180deg, #dfe3ea, #9aa3b2); }
+.pilar-3 { height: 82px;  background: linear-gradient(180deg, #e6b892, #a8683a); }
 
-.podio-base { width: 82%; margin-top: .5rem; border-radius: .6rem .6rem 0 0; }
-.base-1 { height: 60px; background: linear-gradient(180deg, #ffe6a3, #f3c766); }
-.base-2 { height: 40px; background: linear-gradient(180deg, #eef1f6, #d7dce6); }
-.base-3 { height: 26px; background: linear-gradient(180deg, #f2d9c4, #e2b998); }
+/* Puesto sin proyecto todavía */
+.podio-columna.sin-proyecto .podio-nombre,
+.podio-columna.sin-proyecto .podio-puntaje { color: var(--tenue); font-weight: 600; }
+.podio-columna.sin-proyecto .podio-medalla { opacity: .55; }
+.podio-columna.sin-proyecto .podio-pilar {
+    background: repeating-linear-gradient(45deg, #ece4d2 0 8px, #e4dac5 8px 16px);
+    color: #b9ad94; text-shadow: none;
+}
 
+.podio-suelo { height: 8px; border-radius: 4px; background: linear-gradient(180deg, #d9cdb4, #c8baa0); }
+
+/* En el celular el podio se mantiene, solo más compacto */
+@media (max-width: 575.98px) {
+    .podio { gap: .4rem; }
+    .podio-medalla { width: 38px; height: 38px; font-size: .95rem; }
+    .podio-columna.primero .podio-medalla { width: 44px; height: 44px; font-size: 1.1rem; }
+    .podio-corona { width: 30px; }
+    .podio-nombre { font-size: .8rem; }
+    .podio-categoria { display: none; }
+    .podio-puntaje { font-size: 1.1rem; }
+    .podio-columna.primero .podio-puntaje { font-size: 1.4rem; }
+    .podio-pilar { font-size: 1.7rem; }
+    .pilar-1 { height: 104px; }
+    .pilar-2 { height: 78px; }
+    .pilar-3 { height: 58px; }
+}
 /* Círculo con el número de puesto en la tabla del ranking */
 .puesto {
     width: 30px;
@@ -485,13 +506,6 @@ h1,
 }
 .puesto-1 { background: #fff2c9; color: #a46f08; }
 .puesto-3 { background: #f7e5d9; color: #9b5c32; }
-
-@media (max-width: 767.98px) {
-    .podio { grid-template-columns: 1fr; }
-    .podio-puesto.primero { order: -1; }
-    .podio-base { display: none; }
-}
-
 
 /* ---------------------------------------------------------------------
    11. PANTALLAS DE ACCESO (login, recuperar contraseña)

@@ -38,7 +38,7 @@ export default function Instituciones() {
       <div className="row g-3">
         <div className="col-xl-8">
           <div className="card"><div className="card-body">
-            {cargando ? <Cargando /> : datos.length === 0 ? <EstadoVacio titulo="No hay registros todavía" /> : (
+            {!datos ? (cargando ? <Cargando /> : null) : datos.length === 0 ? <EstadoVacio titulo="No hay registros todavía" /> : (
               <div className="table-responsive">
                 <table className="table align-middle mb-0">
                   <thead><tr><th>Nombre</th><th>Ciudad</th><th>Estado</th><th /></tr></thead>

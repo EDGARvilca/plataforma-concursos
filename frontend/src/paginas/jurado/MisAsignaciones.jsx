@@ -15,7 +15,7 @@ export default function MisAsignaciones({ soloEvaluados = false }) {
       <EncabezadoPagina etiqueta="Jurado" titulo={titulo}
                         descripcion={soloEvaluados ? 'Evaluaciones que ya enviaste.' : 'Todos los proyectos que te asignaron.'} />
       <Mensaje texto={error} />
-      {cargando ? <Cargando /> : (
+      {!datos ? (cargando ? <Cargando /> : null) : (
         <TablaAsignaciones asignaciones={datos.asignaciones} filtroInicial={soloEvaluados ? 'evaluados' : 'todos'} />
       )}
     </Pagina>

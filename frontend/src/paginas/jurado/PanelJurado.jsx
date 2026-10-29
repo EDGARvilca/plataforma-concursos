@@ -27,7 +27,7 @@ export default function PanelJurado() {
     <Pagina titulo="Dashboard">
       <EncabezadoPagina etiqueta="Panel del jurado" titulo={`Hola, ${usuario.nombre}`} descripcion="Tus proyectos pendientes y evaluados." />
       <Mensaje texto={error} />
-      {cargando ? <Cargando /> : (
+      {!datos ? (cargando ? <Cargando /> : null) : (
         <>
           <section className="row g-3 mb-3">
             <Indicador etiqueta="Asignados" valor={datos.total} detalle="proyectos" />

@@ -31,7 +31,7 @@ export default function ListaProyectos() {
       </EncabezadoPagina>
       <Mensaje texto={error} />
 
-      {cargando ? <Cargando /> : (
+      {!datos ? (cargando ? <Cargando /> : null) : (
         <div className="card"><div className="card-body">
           <div className="fila-filtros">
             <input type="search" className="form-control" placeholder="Buscar proyecto…" value={texto} onChange={(e) => setTexto(e.target.value)} />

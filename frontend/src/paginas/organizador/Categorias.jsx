@@ -43,7 +43,7 @@ export default function Categorias() {
       <div className="row g-3">
         <div className="col-xl-7">
           <div className="card"><div className="card-body">
-            {cargando ? <Cargando /> : categorias.length === 0 ? (
+            {!categorias ? (cargando ? <Cargando /> : null) : categorias.length === 0 ? (
               <EstadoVacio titulo="No hay registros todavía" texto="Crea la primera categoría con el formulario." />
             ) : (
               <div className="table-responsive">

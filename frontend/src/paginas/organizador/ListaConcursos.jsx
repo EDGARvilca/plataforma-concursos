@@ -38,7 +38,7 @@ export default function ListaConcursos() {
       </EncabezadoPagina>
 
       <Mensaje texto={error} />
-      {cargando ? <Cargando /> : (
+      {!concursos ? (cargando ? <Cargando /> : null) : (
         <div className="card">
           <div className="card-body">
             <div className="fila-filtros">

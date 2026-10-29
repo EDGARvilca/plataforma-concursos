@@ -12,7 +12,7 @@ export default {
           content: ['./index.html', './src/**/*.{js,jsx}'],
           // Clases que armo uniendo textos (ej. 'estado-' + estado) y por eso no aparecen completas en el código
           safelist: {
-            standard: [/^estado-/, /^puesto-/, /^base-/],
+            standard: [/^estado-/, /^puesto-/, /^pilar-/],
           },
         }),
       ]
