@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { INICIO_POR_ROL, useSesion } from '../../contexto/ContextoSesion.jsx'
 import Mensaje from '../../componentes/Mensaje.jsx'
 import PanelHistoria from './PanelHistoria.jsx'
+import Logo from '../../componentes/Logo.jsx'
 
 // Cuentas de prueba: al tocar una se rellenan el correo y la clave
 const CUENTAS_PRUEBA = [
@@ -47,6 +48,8 @@ export default function Ingreso() {
         <section className="col-lg-5 d-flex align-items-center justify-content-center p-3">
           <div className="card tarjeta-acceso w-100">
             <div className="card-body p-4 p-md-5">
+              {/* En el celular el panel verde no se muestra: pongo el logo aquí para no perder la marca */}
+              <div className="d-lg-none text-center mb-4"><Logo tamano={56} /></div>
               <span className="etiqueta-seccion">Acceso seguro</span>
               <h1 className="h2">Iniciar sesión</h1>
               <p className="text-secondary">Ingresa con tu cuenta; te llevo a tu panel según tu rol.</p>

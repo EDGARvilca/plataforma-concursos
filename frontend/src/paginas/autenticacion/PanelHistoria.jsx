@@ -5,7 +5,7 @@ export default function PanelHistoria() {
   return (
     <section className="col-lg-7 auth-historia d-none d-lg-flex flex-column justify-content-between p-5">
       <div className="marca">
-        <Logo tamano={48} claro />
+        <Logo tamano={64} claro />
       </div>
 
       <div>

@@ -603,13 +603,15 @@ h1,
 /* ---------------------------------------------------------------------
    LOGO
    --------------------------------------------------------------------- */
-.logo { display: inline-flex; align-items: center; gap: .65rem; line-height: 1; }
-.logo svg { flex-shrink: 0; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .18)); }
-.logo-texto { display: flex; flex-direction: column; gap: .15rem; }
-.logo-nombre { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; font-size: 1.55rem; letter-spacing: .01em; color: var(--primario); }
-.logo-sub { font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: var(--acento); font-weight: 700; padding-left: .1rem; }
-.logo-claro .logo-nombre { color: #fff; }
-.logo-claro .logo-sub { color: #d8b876; }
+.logo { display: inline-flex; align-items: center; gap: .6rem; line-height: 1; }
+.logo-icono { flex-shrink: 0; width: auto; overflow: visible; }
+.logo-texto { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+/* "Evalua": letra gruesa y redondeada como en el logo oficial */
+.logo-nombre { font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif; font-weight: 800; font-size: calc(var(--logo-alto, 44px) * .6); letter-spacing: -.02em; color: var(--primario); }
+/* "— CONCURSOS —" con las rayitas a los lados */
+.logo-sub { display: flex; align-items: center; gap: .35rem; font-size: calc(var(--logo-alto, 44px) * .17); font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: #d3a53a; padding-left: .3em; }
+.logo-sub::before, .logo-sub::after { content: ''; width: 1.1em; height: 2px; border-radius: 2px; background: currentColor; }
+.logo-claro .logo-nombre { color: #fbf0d4; }
 .sidebar .marca { padding: .25rem .25rem 1.4rem; }
 
 /* ---------------------------------------------------------------------
