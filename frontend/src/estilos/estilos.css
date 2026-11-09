@@ -612,6 +612,8 @@ h1,
 .logo-sub { display: flex; align-items: center; gap: .35rem; font-size: calc(var(--logo-alto, 44px) * .17); font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: #d3a53a; padding-left: .3em; }
 .logo-sub::before, .logo-sub::after { content: ''; width: 1.1em; height: 2px; border-radius: 2px; background: currentColor; }
 .logo-claro .logo-nombre { color: #fbf0d4; }
+/* Sobre fondo claro el dorado original se lee poco: uso uno más oscuro (contraste 4.8:1) */
+.logo:not(.logo-claro) .logo-sub { color: #8a6a2c; }
 .sidebar .marca { padding: .25rem .25rem 1.4rem; }
 
 /* ---------------------------------------------------------------------
