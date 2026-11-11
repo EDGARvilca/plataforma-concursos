@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useSesion } from '../contexto/ContextoSesion.jsx'
 import Logo from './Logo.jsx'
 
@@ -8,8 +8,8 @@ const MENUS = {
     { ruta: '/panel', texto: 'Dashboard', icono: '▦' },
     { ruta: '/concursos', texto: 'Concursos', icono: '◈' },
     { ruta: '/proyectos', texto: 'Proyectos', icono: '▤' },
-    { ruta: '/asignaciones', texto: 'Jurados', icono: '⚖' },
-    { ruta: '/evaluaciones', texto: 'Evaluaciones', icono: '✎' },
+    { ruta: '/asignaciones', texto: 'Jurados', icono: '⚖', incluye: /^\/concursos\/[^/]+\/asignaciones/ },
+    { ruta: '/evaluaciones', texto: 'Evaluaciones', icono: '✎', incluye: /^\/concursos\/[^/]+\/evaluaciones/ },
     { ruta: '/resultados', texto: 'Resultados', icono: '★' },
     { etiqueta: 'Administración' },
     { ruta: '/administracion/usuarios', texto: 'Usuarios', icono: '☺' },
@@ -20,8 +20,8 @@ const MENUS = {
     { ruta: '/panel', texto: 'Dashboard', icono: '▦' },
     { ruta: '/concursos', texto: 'Concursos', icono: '◈' },
     { ruta: '/proyectos', texto: 'Proyectos', icono: '▤' },
-    { ruta: '/asignaciones', texto: 'Jurados', icono: '⚖' },
-    { ruta: '/evaluaciones', texto: 'Evaluaciones', icono: '✎' },
+    { ruta: '/asignaciones', texto: 'Jurados', icono: '⚖', incluye: /^\/concursos\/[^/]+\/asignaciones/ },
+    { ruta: '/evaluaciones', texto: 'Evaluaciones', icono: '✎', incluye: /^\/concursos\/[^/]+\/evaluaciones/ },
     { ruta: '/resultados', texto: 'Resultados', icono: '★' },
   ],
   JUDGE: [
@@ -37,9 +37,23 @@ const MENUS = {
   ],
 }
 
+/**
+ * Decide qué opción del menú se marca. Primero gana una opción que "incluye" la pantalla actual
+ * (por ejemplo, /concursos/1/evaluaciones es de "Evaluaciones" aunque empiece con /concursos);
+ * si ninguna la reclama, se marca la que coincide con el inicio de la dirección.
+ */
+function rutaActiva(opciones, actual) {
+  const especial = opciones.find((o) => o.incluye?.test(actual))
+  if (especial) return especial.ruta
+  const coincide = opciones.find((o) => o.ruta && (actual === o.ruta || (!o.exacta && actual.startsWith(o.ruta + '/'))))
+  return coincide?.ruta
+}
+
 export default function BarraLateral({ abierta, alCerrar }) {
   const { usuario, cerrarSesion } = useSesion()
+  const { pathname } = useLocation()
   const opciones = MENUS[usuario.rol] ?? []
+  const activa = rutaActiva(opciones, pathname)
 
   return (
     <>
@@ -54,15 +68,15 @@ export default function BarraLateral({ abierta, alCerrar }) {
               opcion.etiqueta ? (
                 <div className="menu-etiqueta" key={posicion}>{opcion.etiqueta}</div>
               ) : (
-                <NavLink
+                <Link
                   key={opcion.ruta}
                   to={opcion.ruta}
-                  end={opcion.exacta}
-                  className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}
+                  className={`menu-link ${opcion.ruta === activa ? 'active' : ''}`}
+                  aria-current={opcion.ruta === activa ? 'page' : undefined}
                 >
                   <span className="menu-icono">{opcion.icono}</span>
                   {opcion.texto}
-                </NavLink>
+                </Link>
               ),
             )}
           </nav>
